@@ -2,15 +2,27 @@
 
 
 
-# 【AI】Experience
+# 【AI】Tunning skills
+
+### 疑问点
+
+ 
 
 
 
 
 
+指导：
+
+self-attention+nsa
+
+抗拟合：adversial training 对抗学习
 
 
-### Pooling
+
+
+
+## 一、Pooling
 
 Bert模型出来很多Token之后如何将其组合成一个向量？
 
@@ -22,6 +34,14 @@ Bert模型出来很多Token之后如何将其组合成一个向量？
 - MeanPooling+K_MaxPooling
 - WeightedPooling
 - AttentionPooling
+- Concatenation
+- Bottleneck
+
+其中Concatenation就是Flatten，只不过为了维持网络的大小不变，还用了Padding进行补齐
+
+Bottleneck
+
+<img src="https://aaron-images-bed.oss-cn-hangzhou.aliyuncs.com/Typora/%E7%BB%93%E6%9E%9C.jpg" alt="结果" style="zoom:33%;" />
 
 ```python
 class MeanPooling(nn.Module):
@@ -118,7 +138,19 @@ class AttentionPooling(nn.Module):
 
 
 
-### Normaliaztion
+```
+
+```
+
+
+
+```
+
+```
+
+
+
+## 二、Normaliaztion
 
 二维矩阵[ batch_size ，dim_size ]
 
@@ -147,11 +179,19 @@ BN适合CV，因为CV看重不同图像之间的样本特征关系，而同张�
 
 **Bert**中是使用IN的
 
+用法
+
+```python
+# batch_normalizaton
+norm = nn.LayerNorm([l,d]).cuda()
+output = norm(output)
+```
 
 
 
 
-### Optimizer
+
+## 三、Optimizer
 
 SGD
 
@@ -163,21 +203,21 @@ Wadam
 
 
 
-### Overfitting
+## 四、Overfitting
 
 
 
-### Regex
+## 五、Regex
 
 
 
 
 
-### Loss
+## 六、Loss
 
 
 
-### Activation
+## 七、Activation
 
 理论上非线性函数都可以做激活函数，但是最终层激活函数是固定的如下
 
@@ -196,17 +236,43 @@ Wadam
 
 
 
+## 八、Parameter 
+
+### 8.1 learning-rate
+
+使用warm-up对学习率进行优化，其核心思想为：在训练之初采用较小的学习率，训练一段时间之后，采用较大的学习率
+
+**理论分析**
+
+开始阶段，模型的weights是随机初始化的，模型对数据的理解为0，第一个Epoch是模型快速学习阶段，如果lr过大会导致学偏。
+
+中间阶段，模型训练一段时间后，模型对数据有了一定的先验知识，此时较大学习率的模型就不容易学偏。
+
+最后阶段，模型的分布较为稳定了，使用大lr会破坏模型的稳定性，而且不易找到全局最优位置
+
+**具体方法**
+
+**Constant Warm-up**
+
+lr从非常小的数值线性增加到预设值后保持不变
+
+![在这里插入图片描述](https://aaron-images-bed.oss-cn-hangzhou.aliyuncs.com/Typora/20200224100256431.png)
+
+**Linner Warm-up**
+
+lr从非常小的数值线性增加到预设值后，再线性减少
+
+![在这里插入图片描述](https://aaron-images-bed.oss-cn-hangzhou.aliyuncs.com/Typora/2020022410055516.png)
+
+**Cosine Warm-up**
+
+lr从非常小的数值线性增加到预设值后，再cos数值减少
+
+![在这里插入图片描述](https://aaron-images-bed.oss-cn-hangzhou.aliyuncs.com/Typora/20200224100409219.png)
 
 
 
+### 8.2 eps
 
-
-
-
-
-### 疑问点
-
-疑问一：Normalization是否真的是这样的呢
-
-疑问二：Pooling的时候使用是否Mask_Attention，也就是是否使用有效Token
+作用：在分母上加上eps，一般为1e-8，一来防止分母为0，二来保证数值的稳定性
 
