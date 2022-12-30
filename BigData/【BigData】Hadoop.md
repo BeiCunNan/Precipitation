@@ -16,7 +16,7 @@
 
 #### 2.1.1 Why
 
-随着数据量的增多，需要将数据存储到不同的OS中，需要使用到**分布式文件管理系统**，HDFS(Hadoop Distributed File System)就是一种分布式文件管理系统，用来**存储、管理**文件。适合一次性读入，多次读出的场景
+随着数据量的增多，需要将数据存储到不同的OS中，需要使用到<font color=#ff9f43>分布式文件管理系统</font>，HDFS(Hadoop Distributed File System)就是一种分布式文件管理系统，用来<font color=#ff9f43>存储、管理</font>文件。适合一次性读入，多次读出的场景
 
 
 
@@ -60,7 +60,52 @@ Hadoop2.X和Hadoop3.X都是128Mb，Hadoop1.X是64Mb
 
 <font color=#C1CDCD >但是</font>
 
+
+
 ### 2.2 Shell
+
+### 2.2.1 basic grammer
+
+hdfs fs [operation]
+
+hdfs hds [operation]
+
+
+
+### 2.2.2 Common commands
+
+| Create File |                                                           |
+| ----------- | --------------------------------------------------------- |
+|             | [root@hadoop102 hadoop-3.1.3]# `hadoop fs -mkdir /sanguo` |
+
+
+
+| Upload File                                             |      |
+| ------------------------------------------------------- | ---- |
+| 方式一： 本地<font color=#C1CDCD >剪切</font>粘贴到HDFS |      |
+|                                                         |      |
+|                                                         |      |
+|                                                         |      |
+|                                                         |      |
+|                                                         |      |
+
+
+
+
+
+| Download File |      |
+| ------------- | ---- |
+|               |      |
+
+
+
+| Other Operation |      |
+| :-------------- | ---- |
+|                 |      |
+|                 |      |
+|                 |      |
+|                 |      |
+|                 |      |
 
 
 
